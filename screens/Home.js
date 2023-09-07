@@ -52,7 +52,7 @@ export const Home=(props)=> {
         
       </View>
       <View style={styles.screenNextBtn}>
-      <TouchableOpacity style={styles.closeBtn} onPress={()=>props.navigation.navigate("cater")} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.closeBtn} onPress={()=>props.navigation.navigate("cater",{menu:checkedItems})} activeOpacity={0.8}>
           <Text style={styles.closeBtnTxt}>Next</Text>
          </TouchableOpacity>
       </View>

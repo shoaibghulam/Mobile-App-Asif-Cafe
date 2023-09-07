@@ -1,7 +1,6 @@
-import { View, Text, Modal,Pressable,FlatList, TouchableOpacity,Image} from 'react-native'
+import { View, Text,TouchableOpacity,Image} from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 
-import CheckBox from 'react-native-check-box'
 import React,{useState} from 'react'
 import {styles} from "./styles";
 import {caterStyle as ct} from '../styles/caterstyles';
@@ -9,21 +8,17 @@ import {caterStyle as ct} from '../styles/caterstyles';
 
 
 export const Caters=(props)=> {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [checkedItems, setCheckedItems] = useState([]);
+  const { menu } = props.route.params;
+  // console.log("My Menu is ",menu)
   const [cooks,setCooks]=useState('')
   const [male,setMale]=useState('')
   const [female,setFemale]=useState('')
-  const checkValue=(value)=>{
-    if (checkedItems.includes(value)) {
-      // Value already exists, remove it from the array
-      setCheckedItems(prevItems => prevItems.filter(item => item !== value));
-    } else {
-      // Value does not exist, add it to the array
-      setCheckedItems(prevItems => [...prevItems, value]);
-    }
-    console.log(checkedItems)
-  }
+  const [servant,setServant]=useState({
+    cooks:0,
+    male:0,
+    female:0,
+  })
+  console.log(servant)
   return (
     <View>
         <View style={styles.header}>
@@ -36,11 +31,15 @@ export const Caters=(props)=> {
       <Text style={ct.columnFormLabel}>Select No Cooks</Text>
       <Picker
         prompt="Select Numbered Cooks"   
-        selectedValue={cooks}
-       style={{padding:0,margin:0,}}
-        onValueChange={(itemValue, itemIndex) =>
-          setCooks(itemValue)    }
-          
+        selectedValue={servant.cooks}
+        onValueChange={(itemValue) =>
+          setServant({
+            ...servant,
+             cooks:itemValue,
+                      })}
+                      
+          itemStyle={{textAlign:"right"}}
+          placeholder="Choose Service"
       >
         <Picker.Item label="1" value={1}  />
         <Picker.Item label="2" value={2}  />
@@ -58,18 +57,21 @@ export const Caters=(props)=> {
        
         
       </View>
-      <View style={ct.columnForm}>
+      <View style={ct.columnContainer}>
       <Text style={ct.columnFormLabel}>Select No Maids</Text>
       <View style={ct.colTow}>
         <View style={ct.w50}>
         <Text style={ct.columnFormLabel}>Males</Text>
         <Picker
         prompt="Select Number of Male"    
-        selectedValue={male}
-       style={{padding:0,margin:0,}}
+        selectedValue={servant.male}
         onValueChange={(itemValue) =>
-          setMale(itemValue)    }
+          setServant({
+            ...servant,
+             male:itemValue,
+                      })}
           
+          style={{padding:0,margin:0,}}
       >
         <Picker.Item label="1" value={1}  />
         <Picker.Item label="2" value={2}  />
@@ -88,10 +90,13 @@ export const Caters=(props)=> {
         <Text style={ct.columnFormLabel}>Females</Text>
         <Picker
         prompt="Select Number of Female"   
-        selectedValue={female}
-       style={{padding:0,margin:0,}}
-        onValueChange={(itemValue, itemIndex) =>
-          setFemale(itemValue)    }
+        selectedValue={servant.female}
+        onValueChange={(itemValue) =>
+          setServant({
+            ...servant,
+             female:itemValue,
+                      })}
+          style={{padding:0,margin:0,}}
           
       >
         <Picker.Item label="1" value={1}  />
@@ -120,7 +125,7 @@ export const Caters=(props)=> {
       <TouchableOpacity style={styles.smallBtn} onPress={()=>props.navigation.navigate("home")} activeOpacity={0.8}>
           <Text style={styles.closeBtnTxt}>Back</Text>
          </TouchableOpacity>
-      <TouchableOpacity style={styles.smallBtn}  onPress={()=>props.navigation.navigate("cater")} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.smallBtn}  onPress={()=>props.navigation.navigate("userInfo")} activeOpacity={0.8}>
           <Text style={styles.closeBtnTxt}>Next</Text>
          </TouchableOpacity>
       </View>

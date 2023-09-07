@@ -157,7 +157,8 @@ export const styles=StyleSheet.create({
       multiButton:{ 
       position:"relative",
       flexDirection:"row",
-      top:150,
+      top:100,
+      justifyContent:"center",
       alignItems:"center",
       paddingHorizontal:20,
       gap:10,
