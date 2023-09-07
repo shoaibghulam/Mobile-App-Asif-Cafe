@@ -1,15 +1,19 @@
-import { View, Text, Modal,Pressable,FlatList, Dimensions, TouchableOpacity  } from 'react-native'
+import { View, Text, Modal,Pressable,FlatList, TouchableOpacity,Image} from 'react-native'
+import {Picker} from '@react-native-picker/picker';
+
 import CheckBox from 'react-native-check-box'
 import React,{useState} from 'react'
 import {styles} from "./styles";
-import { MenuItem } from '../components/MenuItem';
-import { alldata } from '../data/alldata';
+import {caterStyle as ct} from '../styles/caterstyles';
+
 
 
 export const Caters=(props)=> {
   const [modalVisible, setModalVisible] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [menu,setMenu]=useState([])
+  const [cooks,setCooks]=useState('')
+  const [male,setMale]=useState('')
+  const [female,setFemale]=useState('')
   const checkValue=(value)=>{
     if (checkedItems.includes(value)) {
       // Value already exists, remove it from the array
@@ -25,16 +29,90 @@ export const Caters=(props)=> {
         <View style={styles.header}>
             <Text style={styles.headerTitle}>The Asif Cafe</Text>
         </View>
-      <View style={styles.menuTitleContainer}>
-      <Text style={styles.menutitle}>Caters</Text>
-      <Text style={styles.menutitleCaption}>Select Caters</Text>
-     
+      <View style={ct.centerContainer}>
+        <Image source={require('../assets/images/catering.png')}  style={ct.caterLogo}/>
       </View>
-      <View style={styles.menuItemContainer}>
-      <Text>Number of Cock</Text>
+      <View style={ct.columnForm}>
+      <Text style={ct.columnFormLabel}>Select No Cooks</Text>
+      <Picker
+        prompt="Select Numbered Cooks"   
+        selectedValue={cooks}
+       style={{padding:0,margin:0,}}
+        onValueChange={(itemValue, itemIndex) =>
+          setCooks(itemValue)    }
+          
+      >
+        <Picker.Item label="1" value={1}  />
+        <Picker.Item label="2" value={2}  />
+        <Picker.Item label="3" value={3}  />
+        <Picker.Item label="4" value={4}  />
+        <Picker.Item label="5" value={5}  />
+        <Picker.Item label="6" value={6}  />
+        <Picker.Item label="7" value={7}  />
+        <Picker.Item label="8" value={8}  />
+        <Picker.Item label="9" value={9}  />
+       
+        {/* Add more Picker.Item elements as needed */}
+      </Picker>
+     
+       
+        
+      </View>
+      <View style={ct.columnForm}>
+      <Text style={ct.columnFormLabel}>Select No Maids</Text>
+      <View style={ct.colTow}>
+        <View style={ct.w50}>
+        <Text style={ct.columnFormLabel}>Males</Text>
+        <Picker
+        prompt="Select Number of Male"    
+        selectedValue={male}
+       style={{padding:0,margin:0,}}
+        onValueChange={(itemValue) =>
+          setMale(itemValue)    }
+          
+      >
+        <Picker.Item label="1" value={1}  />
+        <Picker.Item label="2" value={2}  />
+        <Picker.Item label="3" value={3}  />
+        <Picker.Item label="4" value={4}  />
+        <Picker.Item label="5" value={5}  />
+        <Picker.Item label="6" value={6}  />
+        <Picker.Item label="7" value={7}  />
+        <Picker.Item label="8" value={8}  />
+        <Picker.Item label="9" value={9}  />
+       
+        {/* Add more Picker.Item elements as needed */}
+      </Picker>
+        </View>
+        <View style={ct.w50}>
+        <Text style={ct.columnFormLabel}>Females</Text>
+        <Picker
+        prompt="Select Number of Female"   
+        selectedValue={female}
+       style={{padding:0,margin:0,}}
+        onValueChange={(itemValue, itemIndex) =>
+          setFemale(itemValue)    }
+          
+      >
+        <Picker.Item label="1" value={1}  />
+        <Picker.Item label="2" value={2}  />
+        <Picker.Item label="3" value={3}  />
+        <Picker.Item label="4" value={4}  />
+        <Picker.Item label="5" value={5}  />
+        <Picker.Item label="6" value={6}  />
+        <Picker.Item label="7" value={7}  />
+        <Picker.Item label="8" value={8}  />
+        <Picker.Item label="9" value={9}  />
+       
+        {/* Add more Picker.Item elements as needed */}
+      </Picker>
+        </View>
+      </View>
+      
+      {/* <Text>Number of Cock</Text>
       <Text>Server </Text>
       <Text>Male </Text>
-      <Text>Female</Text>
+      <Text>Female</Text> */}
        
         
       </View>
@@ -45,51 +123,6 @@ export const Caters=(props)=> {
       <TouchableOpacity style={styles.smallBtn}  onPress={()=>props.navigation.navigate("cater")} activeOpacity={0.8}>
           <Text style={styles.closeBtnTxt}>Next</Text>
          </TouchableOpacity>
-      </View>
-      <View>
-        
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-           <View style={styles.closeView}>
-            <Text style={styles.modelTitle}>Select Falavors</Text>
-           <Pressable
-              style={styles.closeBtn}
-              onPress={() => setModalVisible(!modalVisible)}>
-             <Text style={styles.closeBtnText}>X</Text>
-            </Pressable>
-           </View>
-          <View style={styles.modelItmesContainer}>
-               <FlatList
-        data={menu}
-        renderItem={({item}) =>   <CheckBox
-        style={styles.checkBoxStyle}
-        isChecked={checkedItems.includes(item)}
-        onClick={()=>checkValue(item)}
-        rightText={item}
-        
-        rightTextStyle={{fontSize:20,color: checkedItems.includes(item) ? "#2274E0" : "#333"}}
-        checkedCheckBoxColor='#2274E0'
-        uncheckedCheckBoxColor='#333'
-   />}
-        style={styles.flatlist}
-       
-      /> 
-             
-         <TouchableOpacity style={styles.closeBtn} onPress={()=>setModalVisible(!modalVisible)} activeOpacity={0.8}>
-          <Text style={styles.closeBtnTxt}>Save</Text>
-         </TouchableOpacity>
-           
-          </View>
-          </View>
-        </View>
-      </Modal>
       </View>
       
     </View>

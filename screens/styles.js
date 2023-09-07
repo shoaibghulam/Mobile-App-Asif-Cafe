@@ -168,6 +168,13 @@ export const styles=StyleSheet.create({
         width:"50%",
         alignItems:"center",
         borderRadius:5,
+      },
+      caterLogo:{
+        width:"70%",
+       
+        resizeMode:"contain",
+        alignItems:"center",
+        justifyContent:"center"
       }
 
 })

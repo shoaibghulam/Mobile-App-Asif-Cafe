@@ -4,6 +4,7 @@ import React,{useState} from 'react'
 import {styles} from "./styles";
 import { MenuItem } from '../components/MenuItem';
 import { alldata } from '../data/alldata';
+import PropTypes from 'deprecated-react-native-prop-types';
 
 
 export const Home=(props)=> {
